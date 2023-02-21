@@ -1,22 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Route, useParams } from 'react-router-dom';
 import { Context1 } from './../App.js'
-// import styled from 'styled-components';
-
-// let YellowBtn = styled.button`
-//     background:${pros => pros.bg};
-//     color : ${pros => pros.bg == 'blue' ? 'white' : 'black'};
-//     padding : 10px
-//     `
-// let Box = styled.div`
-//     background:grey;
-//     padding : 20px;
-// `
+import { useDispatch } from 'react-redux';
+import { addItem } from './../store.js';
 
 function Detail(props) {
-
-
     let [count, setCount] = useState(0);
     let [alret, setAlret] = useState(true);
     let { id } = useParams();
@@ -25,7 +14,7 @@ function Detail(props) {
         return x.id == id
     });
     let [tab, setTab] = useState();
-
+    let dispatch = useDispatch();
 
     useEffect(() => {
         let a = setTimeout(() => { setAlret(false); }, 2000,)
@@ -65,7 +54,9 @@ function Detail(props) {
                     <h4 className="pt-5">{findProduct.title}</h4>
                     <p>{findProduct.content}</p>
                     <p>{findProduct.price}</p>
-                    <button className="btn btn-danger">주문하기</button>
+                    <button className="btn btn-danger" onClick={() => {
+                        dispatch(addItem({ id: findProduct.id, name: findProduct.title, count: 1 }))
+                    }}>주문하기</button>
                 </Col>
             </Row>
             <Nav variant="tabs" defaultActiveKey="link0">

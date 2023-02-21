@@ -11,6 +11,11 @@ export let Context1 = createContext();
 
 function App() {
 
+  let obj = { name: 'kim' }
+  localStorage.setItem('data', JSON.stringify(obj))
+  let test10 = localStorage.getItem('data')
+  console.log(JSON.parse(test10).name);
+
   let [shoes, setShoes] = useState(data);
   let [jeego] = useState([10, 11, 12])
   let navigate = useNavigate();
@@ -21,7 +26,8 @@ function App() {
           <Navbar.Brand href="/">NEW SHOP</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
-            <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/detail/0') }}>Detail</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
